@@ -1,0 +1,47 @@
+@import "tailwindcss";
+
+@theme {
+  --font-sans: "Montserrat", ui-sans-serif, system-ui, sans-serif;
+  --font-display: "Cinzel", serif;
+  
+  --color-bg-brand: #0B0B0B;
+  --color-card-brand: #141414;
+  --color-gold-brand: #D4AF37;
+  --color-gold-hover: #E9C86B;
+  --color-text-white: #F8F8F8;
+  --color-text-muted: #B7B7B7;
+  --color-border-brand: rgba(255, 255, 255, 0.08);
+}
+
+@layer base {
+  html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 5.5rem;
+    background-color: #0B0B0B;
+    color: #F8F8F8;
+    font-family: var(--font-sans);
+  }
+
+  /* Custom Minimalist Scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+  ::-webkit-scrollbar-track {
+    background: #0B0B0B;
+  }
+  ::-webkit-scrollbar-thumb {
+    background: rgba(212, 175, 55, 0.2);
+    border-radius: 4px;
+    border: 2px solid #0B0B0B;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgba(212, 175, 55, 0.4);
+  }
+
+  /* Focus rings for accessibility */
+  a:focus-visible,
+  button:focus-visible {
+    outline: 2px solid #D4AF37;
+    outline-offset: 4px;
+  }
+}
