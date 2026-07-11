@@ -3,140 +3,149 @@
  * SPDX-License-Identifier: Apache-2.0
  */
 
-import { Phone, MessageSquare, Instagram, Mail, MapPin, Clock } from "lucide-react";
+import { motion } from "motion/react";
+import {
+  Phone,
+  MessageSquare,
+  Instagram,
+  Mail,
+  MapPin,
+} from "lucide-react";
 import { CONTACT_INFO } from "../types";
 
 export default function Contact() {
   const contactMethods = [
     {
-      id: "contact-phone",
+      id: "phone",
       icon: Phone,
-      title: "TELEFON",
+      title: "Telefon",
       value: CONTACT_INFO.phoneFormatted,
       href: `tel:${CONTACT_INFO.phone}`,
-      actionText: "Hemen Ara",
-      color: "text-gold-brand border-gold-brand/20 bg-gold-brand/5"
+      action: "Hemen Ara",
+      color: "text-gold-brand border-gold-brand/20 bg-gold-brand/5",
     },
     {
-      id: "contact-whatsapp",
+      id: "whatsapp",
       icon: MessageSquare,
-      title: "WHATSAPP",
+      title: "WhatsApp",
       value: CONTACT_INFO.phoneFormatted,
       href: CONTACT_INFO.whatsappUrl,
-      actionText: "Mesaj Gönder",
+      action: "Mesaj Gönder",
       color: "text-emerald-500 border-emerald-500/20 bg-emerald-500/5",
-      isExternal: true
+      external: true,
     },
     {
-      id: "contact-instagram",
+      id: "instagram",
       icon: Instagram,
-      title: "INSTAGRAM",
+      title: "Instagram",
       value: `@${CONTACT_INFO.instagram}`,
       href: CONTACT_INFO.instagramUrl,
-      actionText: "Takip Et",
+      action: "Takip Et",
       color: "text-purple-400 border-purple-400/20 bg-purple-400/5",
-      isExternal: true
-    }
+      external: true,
+    },
   ];
 
   return (
     <section
       id="contact"
-      className="py-24 sm:py-32 bg-card-brand/20 border-t border-border-brand relative overflow-hidden"
+      className="relative overflow-hidden border-t border-border-brand bg-card-brand/20 py-24 sm:py-32"
     >
-      {/* Decorative Blur Backgrounds */}
-      <div className="absolute -bottom-20 right-1/4 w-[500px] h-[500px] bg-gold-brand/2 rounded-full blur-3xl pointer-events-none" />
+      <div className="absolute -bottom-24 right-1/3 h-96 w-96 rounded-full bg-gold-brand/5 blur-3xl" />
 
       <div className="max-w-7xl mx-auto px-6">
-        
-        {/* Section Heading */}
-        <div className="text-center max-w-2xl mx-auto mb-16 sm:mb-24 space-y-3">
-          <span className="text-xs uppercase tracking-[0.3em] font-semibold text-gold-brand font-display block">
-            İLETİŞİM MERKEZİ
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="mx-auto mb-16 max-w-2xl text-center"
+        >
+          <span className="block text-xs font-display font-semibold uppercase tracking-[0.35em] text-gold-brand">
+            İLETİŞİM
           </span>
-          <h2 className="text-3xl sm:text-4xl font-display font-bold tracking-wider text-text-white uppercase">
-            BİZİMLE İLETİŞİME GEÇİN
-          </h2>
-          <p className="text-sm sm:text-base text-text-muted font-light">
-            Sorularınız, iş birlikleri veya showroom ziyaret planlamalarınız için dilediğiniz kanaldan anında ulaşın.
-          </p>
-        </div>
 
-        {/* Channels Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16" id="contact-methods-grid">
-          {contactMethods.map((method) => {
-            const Icon = method.icon;
+          <h2 className="mt-3 text-3xl sm:text-4xl font-display font-bold uppercase tracking-wide text-text-white">
+            Bizimle İletişime Geçin
+          </h2>
+
+          <div className="mx-auto mt-5 h-px w-24 bg-gold-brand/50" />
+
+          <p className="mt-6 leading-7 text-text-muted">
+            Sorularınız veya showroom ziyaretiniz için dilediğiniz zaman bizimle
+            iletişime geçebilirsiniz.
+          </p>
+        </motion.div>
+
+        <div className="grid gap-8 md:grid-cols-3">
+          {contactMethods.map((item, index) => {
+            const Icon = item.icon;
             return (
-              <a
-                key={method.id}
-                href={method.href}
-                target={method.isExternal ? "_blank" : undefined}
-                rel={method.isExternal ? "noopener noreferrer" : undefined}
-                className="group bg-card-brand border border-border-brand hover:border-gold-brand/40 p-8 rounded-[2px] flex flex-col items-center text-center transition-all duration-300 hover:-translate-y-1 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold-brand/80"
-                id={method.id}
+              <motion.a
+                key={item.id}
+                href={item.href}
+                target={item.external ? "_blank" : undefined}
+                rel={item.external ? "noopener noreferrer" : undefined}
+                initial={{ opacity: 0, y: 25 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.5, delay: index * 0.1 }}
+                whileHover={{ y: -6, scale: 1.02 }}
+                className="group rounded-[2px] border border-border-brand bg-card-brand p-8 text-center transition-all hover:border-gold-brand/40"
               >
-                {/* Icon Wrapper */}
-                <div className={`p-4 rounded-[2px] border mb-6 transition-transform duration-500 group-hover:scale-110 ${method.color}`}>
-                  <Icon className="w-6 h-6" />
+                <div className={`mx-auto mb-6 flex h-16 w-16 items-center justify-center rounded-[2px] border ${item.color}`}>
+                  <Icon className="h-7 w-7 transition-transform duration-300 group-hover:scale-110" />
                 </div>
 
-                <span className="text-xs font-display font-bold tracking-widest text-text-muted mb-2 uppercase">
-                  {method.title}
-                </span>
+                <h3 className="text-xs font-display font-semibold uppercase tracking-[0.3em] text-text-muted">
+                  {item.title}
+                </h3>
 
-                <span className="text-lg sm:text-xl font-semibold text-text-white group-hover:text-gold-brand transition-colors duration-300 mb-6 font-display">
-                  {method.value}
-                </span>
+                <p className="mt-4 text-xl font-display font-bold text-text-white group-hover:text-gold-brand">
+                  {item.value}
+                </p>
 
-                <span className="text-xs font-bold tracking-widest text-gold-brand border-b border-gold-brand/30 pb-0.5 group-hover:text-gold-hover group-hover:border-gold-hover transition-colors">
-                  {method.actionText.toUpperCase()}
+                <span className="mt-6 inline-block border-b border-gold-brand/30 pb-1 text-xs font-bold uppercase tracking-[0.25em] text-gold-brand">
+                  {item.action}
                 </span>
-              </a>
+              </motion.a>
             );
           })}
         </div>
 
-        {/* Placeholders Row: Email & Address Placeholders as explicitly requested */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-8 border-t border-border-brand pt-12" id="contact-placeholders">
-          
-          {/* E-posta Placeholder */}
-          <div className="bg-card-brand/40 border border-border-brand/50 p-6 rounded-[2px] flex items-start gap-4">
-            <div className="bg-white/5 p-3 rounded-[2px] text-text-muted flex-shrink-0">
-              <Mail className="w-5 h-5" />
-            </div>
-            <div className="space-y-1">
-              <h4 className="text-xs font-semibold tracking-widest text-text-white uppercase font-display">
-                E-POSTA ADRESİ
-              </h4>
-              <p className="text-sm text-text-muted italic font-light font-mono">
-                [ info@mrtdayiogluauto.com ]
-              </p>
-              <p className="text-[11px] text-text-muted/60">
-                Resmi kurumsal e-posta adresi yakında aktif edilecektir.
-              </p>
+        <div className="mt-14 grid gap-6 md:grid-cols-2">
+          <div className="rounded-[2px] border border-border-brand bg-card-brand/40 p-6">
+            <div className="flex items-start gap-4">
+              <div className="rounded-[2px] bg-white/5 p-3">
+                <Mail className="h-5 w-5 text-gold-brand" />
+              </div>
+              <div>
+                <h4 className="font-display text-xs font-semibold uppercase tracking-[0.3em] text-text-white">
+                  E-Posta
+                </h4>
+                <p className="mt-2 text-text-muted">
+                  info@mrtdayiogluauto.com
+                </p>
+              </div>
             </div>
           </div>
 
-          {/* Adres Placeholder */}
-          <div className="bg-card-brand/40 border border-border-brand/50 p-6 rounded-[2px] flex items-start gap-4">
-            <div className="bg-white/5 p-3 rounded-[2px] text-text-muted flex-shrink-0">
-              <MapPin className="w-5 h-5" />
-            </div>
-            <div className="space-y-1">
-              <h4 className="text-xs font-semibold tracking-widest text-text-white uppercase font-display">
-                KURUMSAL ADRES (ALTERNATİF)
-              </h4>
-              <p className="text-sm text-text-muted italic font-light">
-                [ Showroom Adresi Dışındaki Ofis/Şube Adresi Buraya Eklenecektir ]
-              </p>
-              <p className="text-[11px] text-text-muted/60">
-                Yeni şube bilgileri çok yakında paylaşılacaktır.
-              </p>
+          <div className="rounded-[2px] border border-border-brand bg-card-brand/40 p-6">
+            <div className="flex items-start gap-4">
+              <div className="rounded-[2px] bg-white/5 p-3">
+                <MapPin className="h-5 w-5 text-gold-brand" />
+              </div>
+              <div>
+                <h4 className="font-display text-xs font-semibold uppercase tracking-[0.3em] text-text-white">
+                  Adres
+                </h4>
+                <p className="mt-2 text-text-muted">
+                  {CONTACT_INFO.address}
+                </p>
+              </div>
             </div>
           </div>
-
         </div>
-
       </div>
     </section>
   );

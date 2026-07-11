@@ -10,47 +10,41 @@ import { CONTACT_INFO } from "../types";
 export default function FloatingActions() {
   return (
     <div
-      className="fixed bottom-6 right-6 z-50 flex flex-col gap-4"
       id="floating-actions-container"
+      className="fixed bottom-6 right-6 z-50 flex flex-col gap-4"
     >
-      {/* WhatsApp Floating Button */}
       <motion.a
         href={CONTACT_INFO.whatsappUrl}
         target="_blank"
         rel="noopener noreferrer"
-        initial={{ scale: 0, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.8 }}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-        className="w-14 h-14 bg-emerald-500 hover:bg-emerald-600 text-white rounded-[2px] flex items-center justify-center shadow-2xl hover:shadow-emerald-500/20 transition-colors cursor-pointer relative group focus:outline-none focus-visible:ring-4 focus-visible:ring-emerald-500/80"
-        aria-label="WhatsApp ile iletişime geçin"
-        id="floating-whatsapp"
+        initial={{ opacity: 0, scale: 0.8, y: 20 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.5 }}
+        whileHover={{ scale: 1.08 }}
+        whileTap={{ scale: 0.95 }}
+        aria-label="WhatsApp ile iletişime geç"
+        className="group relative flex h-14 w-14 items-center justify-center rounded-[2px] bg-emerald-500 text-white shadow-xl shadow-emerald-500/20 transition-all duration-300 hover:bg-emerald-600 focus:outline-none focus-visible:ring-4 focus-visible:ring-emerald-500/70"
       >
-        <MessageSquare className="w-6 h-6 fill-current" />
-        
-        {/* Hover Tooltip */}
-        <span className="absolute right-16 bg-card-brand text-text-white border border-border-brand text-xs font-semibold tracking-wider py-1.5 px-3 rounded-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap">
-          WHATSAPP HATTI
+        <MessageSquare className="h-6 w-6" />
+
+        <span className="pointer-events-none absolute right-16 whitespace-nowrap rounded-[2px] border border-border-brand bg-card-brand px-3 py-2 text-xs font-semibold tracking-[0.2em] text-text-white opacity-0 transition-all duration-300 group-hover:opacity-100">
+          WHATSAPP
         </span>
       </motion.a>
 
-      {/* Phone Floating Button */}
       <motion.a
         href={`tel:${CONTACT_INFO.phone}`}
-        initial={{ scale: 0, opacity: 0 }}
-        animate={{ scale: 1, opacity: 1 }}
-        transition={{ type: "spring", stiffness: 260, damping: 20, delay: 0.9 }}
-        whileHover={{ scale: 1.1 }}
-        whileTap={{ scale: 0.9 }}
-        className="w-14 h-14 bg-gold-brand hover:bg-gold-hover text-bg-brand rounded-[2px] flex items-center justify-center shadow-2xl hover:shadow-gold-brand/20 transition-colors cursor-pointer relative group focus:outline-none focus-visible:ring-4 focus-visible:ring-gold-brand/80"
-        aria-label="Telefonla arayın"
-        id="floating-phone"
+        initial={{ opacity: 0, scale: 0.8, y: 20 }}
+        animate={{ opacity: 1, scale: 1, y: 0 }}
+        transition={{ duration: 0.5, delay: 0.6 }}
+        whileHover={{ scale: 1.08 }}
+        whileTap={{ scale: 0.95 }}
+        aria-label="Telefon ile ara"
+        className="group relative flex h-14 w-14 items-center justify-center rounded-[2px] bg-gold-brand text-bg-brand shadow-xl shadow-gold-brand/20 transition-all duration-300 hover:bg-gold-hover focus:outline-none focus-visible:ring-4 focus-visible:ring-gold-brand/70"
       >
-        <Phone className="w-6 h-6 fill-current" />
+        <Phone className="h-6 w-6" />
 
-        {/* Hover Tooltip */}
-        <span className="absolute right-16 bg-card-brand text-text-white border border-border-brand text-xs font-semibold tracking-wider py-1.5 px-3 rounded-[2px] opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none whitespace-nowrap">
+        <span className="pointer-events-none absolute right-16 whitespace-nowrap rounded-[2px] border border-border-brand bg-card-brand px-3 py-2 text-xs font-semibold tracking-[0.2em] text-text-white opacity-0 transition-all duration-300 group-hover:opacity-100">
           HEMEN ARA
         </span>
       </motion.a>

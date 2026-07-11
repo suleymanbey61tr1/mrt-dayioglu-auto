@@ -6,6 +6,7 @@
 import { motion } from "motion/react";
 import { Phone, MessageSquare, MapPin, ChevronDown } from "lucide-react";
 import { CONTACT_INFO } from "../types";
+import heroImage from "../assets/images/hero_luxury_car_1783580755950.jpg";
 
 export default function Hero() {
   const handleScrollToNext = () => {
@@ -23,11 +24,12 @@ export default function Hero() {
       {/* Background Image with Dark Vignette Overlay */}
       <div className="absolute inset-0 z-0">
         <img
-          src="/src/assets/images/hero_luxury_car_1783580755950.jpg"
+          src={heroImage}
           alt="MRT Dayıoğlu Auto Luxury Showroom"
           className="w-full h-full object-cover object-center scale-105 filter brightness-75 scale-down-subtle"
           referrerPolicy="no-referrer"
         />
+
         {/* Cinematic Premium Overlay Gradient */}
         <div className="absolute inset-0 bg-gradient-to-t from-bg-brand via-bg-brand/60 to-bg-brand/70" />
         <div className="absolute inset-0 bg-radial-at-c from-transparent via-bg-brand/30 to-bg-brand/90" />
@@ -68,7 +70,8 @@ export default function Hero() {
           transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
           className="text-base sm:text-lg md:text-xl font-sans text-text-muted max-w-2xl font-light tracking-wide leading-relaxed mb-12"
         >
-          Seçkin otomotiv dünyasında güven, prestij ve kurumsal mükemmelliğin buluştuğu adres.
+          Seçkin otomotiv dünyasında güven, prestij ve kurumsal mükemmelliğin
+          buluştuğu adres.
         </motion.p>
 
         {/* 3 Main Quick Contact Buttons */}
@@ -123,7 +126,9 @@ export default function Hero() {
           className="absolute bottom-8 flex flex-col items-center gap-2 text-text-muted hover:text-gold-brand transition-colors duration-300 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-gold-brand/80 p-2 rounded-[2px]"
           aria-label="Aşağı Kaydır"
         >
-          <span className="text-xs uppercase tracking-[0.25em] font-light">KEŞFET</span>
+          <span className="text-xs uppercase tracking-[0.25em] font-light">
+            KEŞFET
+          </span>
           <ChevronDown className="w-4 h-4 animate-bounce" />
         </motion.button>
       </div>

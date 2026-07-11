@@ -4,14 +4,15 @@
  */
 
 import { useState } from "react";
+import { motion } from "motion/react";
 import { MapPin, Navigation, Copy, Check } from "lucide-react";
 import { CONTACT_INFO } from "../types";
 
 export default function Location() {
   const [copied, setCopied] = useState(false);
 
-  const handleCopyAddress = () => {
-    navigator.clipboard.writeText(CONTACT_INFO.address);
+  const handleCopyAddress = async () => {
+    await navigator.clipboard.writeText(CONTACT_INFO.address);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
   };
@@ -19,108 +20,113 @@ export default function Location() {
   return (
     <section
       id="location"
-      className="py-24 sm:py-32 bg-bg-brand border-t border-border-brand relative"
+      className="relative border-t border-border-brand bg-bg-brand py-24 sm:py-32 overflow-hidden"
     >
+      <div className="absolute -right-24 top-10 h-80 w-80 rounded-full bg-gold-brand/5 blur-3xl" />
       <div className="max-w-7xl mx-auto px-6">
-        
-        {/* Title Group */}
-        <div className="text-center max-w-2xl mx-auto mb-16 sm:mb-20 space-y-3">
-          <span className="text-xs uppercase tracking-[0.3em] font-semibold text-gold-brand font-display block">
-            ULAŞIM & SHOWROOM
+        <motion.div
+          initial={{opacity:0,y:30}}
+          whileInView={{opacity:1,y:0}}
+          viewport={{once:true}}
+          transition={{duration:.7}}
+          className="mx-auto mb-16 max-w-2xl text-center"
+        >
+          <span className="block text-xs font-display font-semibold uppercase tracking-[0.35em] text-gold-brand">
+            SHOWROOM & KONUM
           </span>
-          <h2 className="text-3xl sm:text-4xl font-display font-bold tracking-wider text-text-white uppercase">
-            ZİYARET EDİN
+          <h2 className="mt-3 text-3xl sm:text-4xl font-display font-bold uppercase tracking-wide text-text-white">
+            Bizi Ziyaret Edin
           </h2>
-          <p className="text-sm sm:text-base text-text-muted font-light">
-            Sizleri showroomumuzda ağırlamaktan ve kurumsal hizmet ayrıcalıklarımızı paylaşmaktan onur duyarız.
+          <div className="mx-auto mt-5 h-px w-24 bg-gold-brand/50" />
+          <p className="mt-6 text-text-muted leading-7">
+            Sizleri showroomumuzda ağırlamaktan memnuniyet duyar, kaliteli hizmet
+            anlayışımızı yakından tanımanızı isteriz.
           </p>
-        </div>
+        </motion.div>
 
-        {/* Layout: Sidebar & Big Map Frame */}
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-stretch">
-          
-          {/* Address Details Panel */}
-          <div className="lg:col-span-4 bg-card-brand border border-border-brand p-8 rounded-[2px] flex flex-col justify-between space-y-8">
-            <div className="space-y-6">
-              <div className="flex items-center gap-3 text-gold-brand">
-                <MapPin className="w-5 h-5" />
-                <h3 className="font-display font-bold text-lg tracking-wider text-text-white uppercase">
-                  SHOWROOM ADRESİ
+        <div className="grid gap-8 lg:grid-cols-12">
+          <motion.div
+            initial={{opacity:0,x:-30}}
+            whileInView={{opacity:1,x:0}}
+            viewport={{once:true}}
+            transition={{duration:.7}}
+            className="lg:col-span-4 rounded-[2px] border border-border-brand bg-card-brand p-8 flex flex-col justify-between"
+          >
+            <div>
+              <div className="flex items-center gap-3">
+                <MapPin className="h-5 w-5 text-gold-brand"/>
+                <h3 className="font-display text-lg font-bold uppercase tracking-wide text-text-white">
+                  Showroom Adresi
                 </h3>
               </div>
 
-              {/* Address Container */}
-              <div className="space-y-4">
-                <div className="p-4 bg-bg-brand border border-border-brand rounded-[2px]">
-                  <p className="text-text-muted text-sm sm:text-base leading-relaxed font-light">
-                    {CONTACT_INFO.address || "Adres bilgisi yakında eklenecektir."}
-                  </p>
-                </div>
-
-                {/* Copy Button */}
-                <button
-                  onClick={handleCopyAddress}
-                  className="flex items-center justify-center gap-2 w-full text-xs font-semibold tracking-wider text-text-white hover:text-gold-brand bg-bg-brand hover:bg-bg-brand/80 border border-border-brand hover:border-gold-brand py-3 rounded-[2px] transition-all duration-300 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-gold-brand/80"
-                  id="copy-address-btn"
-                >
-                  {copied ? (
-                    <>
-                      <Check className="w-3.5 h-3.5 text-emerald-500" />
-                      <span className="text-emerald-500 font-bold">ADRES KOPYALANDI!</span>
-                    </>
-                  ) : (
-                    <>
-                      <Copy className="w-3.5 h-3.5" />
-                      <span>ADRESİ KOPYALA</span>
-                    </>
-                  )}
-                </button>
+              <div className="mt-6 rounded-[2px] border border-border-brand bg-bg-brand p-4">
+                <p className="text-sm leading-7 text-text-muted">
+                  {CONTACT_INFO.address || "Adres bilgisi yakında eklenecektir."}
+                </p>
               </div>
 
-              {/* Working Hours Info */}
-              <div className="border-t border-border-brand pt-6 space-y-3">
-                <h4 className="text-xs font-semibold tracking-widest text-text-white uppercase font-display">
+              <button
+                onClick={handleCopyAddress}
+                className="mt-4 flex w-full items-center justify-center gap-2 rounded-[2px] border border-border-brand bg-bg-brand py-3 text-xs font-semibold tracking-[0.2em] text-text-white transition-all hover:border-gold-brand hover:text-gold-brand"
+              >
+                {copied ? (
+                  <>
+                    <Check className="h-4 w-4 text-emerald-500"/>
+                    <span className="text-emerald-500">KOPYALANDI</span>
+                  </>
+                ) : (
+                  <>
+                    <Copy className="h-4 w-4"/>
+                    <span>ADRESİ KOPYALA</span>
+                  </>
+                )}
+              </button>
+
+              <div className="mt-8 border-t border-border-brand pt-6">
+                <h4 className="mb-4 font-display text-xs uppercase tracking-[0.3em] text-text-white">
                   Çalışma Saatleri
                 </h4>
-                <div className="flex justify-between text-xs text-text-muted">
-                  <span>Pazartesi - Cumartesi:</span>
-                  <span className="text-text-white font-medium">09:00 - 19:00</span>
+
+                <div className="flex justify-between text-sm text-text-muted">
+                  <span>Pzt - Cmt</span>
+                  <span className="text-text-white">09:00 - 19:00</span>
                 </div>
-                <div className="flex justify-between text-xs text-text-muted">
-                  <span>Pazar:</span>
-                  <span className="text-gold-brand font-medium">Randevu ile</span>
+
+                <div className="mt-2 flex justify-between text-sm text-text-muted">
+                  <span>Pazar</span>
+                  <span className="text-gold-brand">Randevu ile</span>
                 </div>
               </div>
             </div>
 
-            {/* Main Action Button */}
             <a
               href={CONTACT_INFO.mapsDirectionsUrl}
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center justify-center gap-3 bg-gold-brand hover:bg-gold-hover text-bg-brand font-bold tracking-wider py-4 rounded-[2px] transition-all duration-300 shadow-lg shadow-gold-brand/15 hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold-brand/80"
-              id="get-directions-btn"
+              className="mt-8 flex items-center justify-center gap-3 rounded-[2px] bg-gold-brand py-4 font-bold tracking-[0.2em] text-bg-brand transition-all hover:-translate-y-1 hover:bg-gold-hover"
             >
-              <Navigation className="w-5 h-5 fill-current" />
+              <Navigation className="h-5 w-5"/>
               <span>YOL TARİFİ AL</span>
             </a>
-          </div>
+          </motion.div>
 
-          {/* Interactive Google Map Frame */}
-          <div className="lg:col-span-8 bg-card-brand border border-border-brand p-2 rounded-[2px] h-[400px] lg:h-auto min-h-[350px] relative overflow-hidden">
+          <motion.div
+            initial={{opacity:0,x:30}}
+            whileInView={{opacity:1,x:0}}
+            viewport={{once:true}}
+            transition={{duration:.7,delay:.15}}
+            className="relative min-h-[420px] overflow-hidden rounded-[2px] border border-border-brand bg-card-brand p-2 lg:col-span-8"
+          >
             <iframe
               src={CONTACT_INFO.mapsEmbedUrl}
-              className="w-full h-full rounded-[2px] border-0 filter invert-[90%] hue-rotate-[180deg] contrast-[105%] brightness-[95%]"
-              allowFullScreen={false}
+              title="MRT DAYIOĞLU AUTO Konum"
               loading="lazy"
+              className="h-full w-full rounded-[2px] border-0 invert-[90%] brightness-[95%] contrast-[105%] hue-rotate-[180deg]"
               referrerPolicy="no-referrer-when-downgrade"
-              title="MRT DAYIOĞLU AUTO Google Haritası"
-              id="showroom-map-iframe"
             />
-            {/* Elegant Map Rim Shadow Overlay */}
-            <div className="absolute inset-2 pointer-events-none rounded-[2px] border border-white/5 shadow-inner" />
-          </div>
-
+            <div className="pointer-events-none absolute inset-2 rounded-[2px] border border-white/5 shadow-inner"/>
+          </motion.div>
         </div>
       </div>
     </section>

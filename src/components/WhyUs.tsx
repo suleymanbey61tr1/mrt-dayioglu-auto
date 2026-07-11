@@ -6,115 +6,104 @@
 import { motion } from "motion/react";
 import { Shield, Award, Zap, Heart } from "lucide-react";
 
+const features = [
+  {
+    id: "trust",
+    icon: Shield,
+    title: "Güvenilir Alım Satım",
+    description:
+      "Tüm süreçlerde şeffaf, dürüst ve güvenilir bir hizmet anlayışı sunuyoruz.",
+    badge: "DÜRÜST TİCARET",
+  },
+  {
+    id: "quality",
+    icon: Award,
+    title: "Titizlikle Seçilmiş Araçlar",
+    description:
+      "Kalite standartlarımızı karşılayan araçları özenle sizlerle buluşturuyoruz.",
+    badge: "PREMIUM KALİTE",
+  },
+  {
+    id: "fast",
+    icon: Zap,
+    title: "Hızlı İletişim",
+    description:
+      "Telefon, WhatsApp ve sosyal medya üzerinden hızlı geri dönüş sağlıyoruz.",
+    badge: "HIZLI DESTEK",
+  },
+  {
+    id: "care",
+    icon: Heart,
+    title: "Müşteri Memnuniyeti",
+    description:
+      "Amacımız yalnızca satış yapmak değil, uzun yıllar sürecek güven ilişkileri kurmaktır.",
+    badge: "GÜVEN ODAKLI",
+  },
+];
+
 export default function WhyUs() {
-  const features = [
-    {
-      id: "feature-trust",
-      icon: Shield,
-      title: "Güvenilir Hizmet",
-      description: "Şeffaf ticaret ilkeleri ve yasal ekspertiz garantisiyle, tüm süreçlerimizi güven ve dürüstlük temeli üzerine inşa ediyoruz."
-    },
-    {
-      id: "feature-quality",
-      icon: Award,
-      title: "Kaliteli Hizmet Anlayışı",
-      description: "Dünya standartlarında kurumsal danışmanlık ve prestijli hizmet deneyimi sunarak lüks otomobil standartlarını her aşamaya taşıyoruz."
-    },
-    {
-      id: "feature-fast",
-      icon: Zap,
-      title: "Hızlı İletişim",
-      description: "WhatsApp, telefon veya sosyal mecralardan gelen tüm taleplerinize dakikalar içerisinde profesyonel geri dönüş sağlıyoruz."
-    },
-    {
-      id: "feature-satisfaction",
-      icon: Heart,
-      title: "Müşteri Memnuniyeti",
-      description: "Tüm kurumsal ilişkilerimizde kalıcı güven, dostluklar ve memnuniyet esaslı iş birlikleri yaratmayı hedefliyoruz."
-    }
-  ];
-
-  const containerVariants = {
-    hidden: {},
-    visible: {
-      transition: {
-        staggerChildren: 0.15
-      }
-    }
-  };
-
-  const cardVariants = {
-    hidden: { opacity: 0, y: 30 },
-    visible: { opacity: 1, y: 0, transition: { duration: 0.6, ease: "easeOut" } }
-  };
-
   return (
     <section
       id="why-us"
-      className="py-24 sm:py-32 bg-card-brand/30 border-t border-border-brand relative"
+      className="relative border-t border-border-brand bg-card-brand/30 py-24 sm:py-32"
     >
       <div className="max-w-7xl mx-auto px-6">
-        
-        {/* Title Group */}
-        <div className="text-center max-w-2xl mx-auto mb-16 sm:mb-24 space-y-3">
-          <span className="text-xs uppercase tracking-[0.3em] font-semibold text-gold-brand font-display block">
-            AYRICALIKLARIMIZ
-          </span>
-          <h2 className="text-3xl sm:text-4xl font-display font-bold tracking-wider text-text-white uppercase">
-            NEDEN MRT DAYIOĞLU AUTO?
-          </h2>
-          <p className="text-sm sm:text-base text-text-muted font-light leading-relaxed">
-            Bizim için otomobil danışmanlığı, yüksek standartlarda bir prestij ve güven ortaklığıdır.
-          </p>
-        </div>
-
-        {/* 4 Premium Cards Grid */}
         <motion.div
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-100px" }}
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6"
-          id="why-us-grid"
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.7 }}
+          className="mx-auto mb-16 max-w-2xl text-center"
         >
-          {features.map((feat) => {
-            const IconComponent = feat.icon;
-            return (
-              <motion.div
-                key={feat.id}
-                variants={cardVariants}
-                whileHover={{ y: -8, borderColor: "rgba(212,175,55,0.4)" }}
-                className="bg-card-brand border border-border-brand p-8 rounded-[2px] transition-all duration-300 relative group flex flex-col justify-between"
-                id={feat.id}
-              >
-                {/* Subtle visual glow on card hover */}
-                <div className="absolute inset-0 bg-gradient-to-br from-gold-brand/2 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-[2px] pointer-events-none" />
+          <span className="block font-display text-xs font-semibold uppercase tracking-[0.35em] text-gold-brand">
+            NEDEN BİZ?
+          </span>
 
-                <div className="space-y-6">
-                  {/* Icon Box */}
-                  <div className="w-12 h-12 bg-bg-brand border border-border-brand rounded-[2px] flex items-center justify-center text-gold-brand group-hover:border-gold-brand/50 group-hover:text-gold-hover transition-colors duration-300">
-                    <IconComponent className="w-6 h-6" />
-                  </div>
+          <h2 className="mt-3 text-3xl font-display font-bold uppercase tracking-wide text-text-white sm:text-4xl">
+            Neden MRT DAYIOĞLU AUTO?
+          </h2>
 
-                  {/* Text Contents */}
-                  <div className="space-y-3">
-                    <h3 className="text-lg font-display font-bold text-text-white tracking-wide group-hover:text-gold-brand transition-colors duration-300 uppercase">
-                      {feat.title}
-                    </h3>
-                    <p className="text-sm text-text-muted font-light leading-relaxed">
-                      {feat.description}
-                    </p>
-                  </div>
-                </div>
+          <div className="mx-auto mt-5 h-px w-24 bg-gold-brand/50" />
 
-                {/* Small Decorative Indicator */}
-                <div className="mt-8 flex items-center gap-1.5 text-[10px] text-gold-brand/40 font-semibold tracking-wider uppercase font-display select-none">
-                  <span>✓ GÜVENCE</span>
-                </div>
-              </motion.div>
-            );
-          })}
+          <p className="mt-6 text-base leading-7 text-text-muted">
+            Güven, kalite ve profesyonel hizmet anlayışını bir araya getirerek
+            sizlere ayrıcalıklı bir otomotiv deneyimi sunuyoruz.
+          </p>
         </motion.div>
+
+        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-4">
+          {features.map(({ id, icon: Icon, title, description, badge }, index) => (
+            <motion.div
+              key={id}
+              initial={{ opacity: 0, y: 35 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true }}
+              transition={{ duration: 0.5, delay: index * 0.1 }}
+              whileHover={{ y: -8, scale: 1.02 }}
+              className="group relative overflow-hidden rounded-[2px] border border-border-brand bg-card-brand p-8 transition-all duration-300 hover:border-gold-brand/40"
+            >
+              <div className="absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100 bg-gradient-to-br from-gold-brand/5 via-transparent to-transparent" />
+
+              <div className="relative">
+                <div className="mb-6 flex h-14 w-14 items-center justify-center rounded-[2px] border border-gold-brand/20 bg-gold-brand/10 transition-all duration-300 group-hover:border-gold-brand/50">
+                  <Icon className="h-7 w-7 text-gold-brand transition-transform duration-300 group-hover:scale-110" />
+                </div>
+
+                <h3 className="mb-3 font-display text-lg font-bold uppercase tracking-wide text-text-white transition-colors group-hover:text-gold-brand">
+                  {title}
+                </h3>
+
+                <p className="text-sm leading-7 text-text-muted">
+                  {description}
+                </p>
+
+                <div className="mt-8 border-t border-border-brand pt-4 text-[10px] font-semibold uppercase tracking-[0.25em] text-gold-brand">
+                  ✓ {badge}
+                </div>
+              </div>
+            </motion.div>
+          ))}
+        </div>
       </div>
     </section>
   );
