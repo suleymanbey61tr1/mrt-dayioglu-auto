@@ -15,36 +15,36 @@ import { CONTACT_INFO } from "../types";
 
 export default function Contact() {
   const contactMethods = [
-    {
-      id: "phone",
-      icon: Phone,
-      title: "Telefon",
-      value: CONTACT_INFO.phoneFormatted,
-      href: `tel:${CONTACT_INFO.phone}`,
-      action: "Hemen Ara",
-      color: "text-gold-brand border-gold-brand/20 bg-gold-brand/5",
-    },
-    {
-      id: "whatsapp",
-      icon: MessageSquare,
-      title: "WhatsApp",
-      value: CONTACT_INFO.phoneFormatted,
-      href: CONTACT_INFO.whatsappUrl,
-      action: "Mesaj Gönder",
-      color: "text-emerald-500 border-emerald-500/20 bg-emerald-500/5",
-      external: true,
-    },
-    {
-      id: "instagram",
-      icon: Instagram,
-      title: "Instagram",
-      value: `@${CONTACT_INFO.instagram}`,
-      href: CONTACT_INFO.instagramUrl,
-      action: "Takip Et",
-      color: "text-purple-400 border-purple-400/20 bg-purple-400/5",
-      external: true,
-    },
-  ];
+  {
+    id: "phone",
+    icon: Phone,
+    title: "Telefon",
+    value: CONTACT_INFO.phoneFormatted,
+    href: `tel:${CONTACT_INFO.phone}`,
+    action: "Hemen Ara",
+    color: "text-gold-brand border-gold-brand/20 bg-gold-brand/5",
+  },
+  {
+    id: "whatsapp",
+    icon: MessageSquare,
+    title: "WhatsApp",
+    value: CONTACT_INFO.phoneFormatted,
+    href: CONTACT_INFO.whatsappUrl,
+    action: "Mesaj Gönder",
+    color: "text-emerald-500 border-emerald-500/20 bg-emerald-500/5",
+    external: true,
+  },
+  {
+    id: "instagram",
+    icon: Instagram,
+    title: "Instagram",
+    value: `@${CONTACT_INFO.instagram}`,
+    href: CONTACT_INFO.instagramUrl,
+    action: "Takip Et",
+    color: "text-purple-400 border-purple-400/20 bg-purple-400/5",
+    external: true,
+  },
+];
 
   return (
     <section
@@ -124,7 +124,7 @@ export default function Contact() {
                   E-Posta
                 </h4>
                 <p className="mt-2 text-text-muted">
-                  info@mrtdayiogluauto.com
+                  suleymanertekin6161@gmail.com
                 </p>
               </div>
             </div>

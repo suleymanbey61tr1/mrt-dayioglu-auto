@@ -1,137 +1,234 @@
-/**
- * @license
- * SPDX-License-Identifier: Apache-2.0
- */
-
-import { motion } from "motion/react";
-import { Phone, MessageSquare, MapPin, ChevronDown } from "lucide-react";
+import { motion, useReducedMotion } from "motion/react";
+import {
+  ChevronDown,
+  MapPin,
+  MessageSquare,
+  Phone,
+} from "lucide-react";
 import { CONTACT_INFO } from "../types";
 import heroImage from "../assets/images/hero_luxury_car_1783580755950.jpg";
 
 export default function Hero() {
+  const shouldReduceMotion = useReducedMotion();
+
+  const mapsUrl =
+    CONTACT_INFO.mapsDirectionsUrl ||
+    `https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
+      CONTACT_INFO.address,
+    )}`;
+
   const handleScrollToNext = () => {
-    const nextSection = document.querySelector("#about");
-    if (nextSection) {
-      nextSection.scrollIntoView({ behavior: "smooth" });
-    }
+    const nextSection = document.querySelector<HTMLElement>("#about");
+
+    if (!nextSection) return;
+
+    const headerHeight =
+      document.getElementById("app-header")?.offsetHeight ?? 88;
+
+    const targetPosition =
+      nextSection.getBoundingClientRect().top +
+      window.scrollY -
+      headerHeight -
+      16;
+
+    window.scrollTo({
+      top: Math.max(targetPosition, 0),
+      behavior: shouldReduceMotion ? "auto" : "smooth",
+    });
+  };
+
+  const entranceTransition = {
+    duration: shouldReduceMotion ? 0 : 0.8,
+    ease: "easeOut" as const,
   };
 
   return (
     <section
       id="home"
-      className="relative min-h-screen flex items-center justify-center overflow-hidden bg-bg-brand"
+      aria-labelledby="hero-title"
+      className="relative flex min-h-screen items-center justify-center overflow-hidden bg-bg-brand"
     >
-      {/* Background Image with Dark Vignette Overlay */}
-      <div className="absolute inset-0 z-0">
+      <div className="absolute inset-0 z-0" aria-hidden="true">
         <img
           src={heroImage}
-          alt="MRT Dayıoğlu Auto Luxury Showroom"
-          className="w-full h-full object-cover object-center scale-105 filter brightness-75 scale-down-subtle"
-          referrerPolicy="no-referrer"
+          alt=""
+          width="1920"
+          height="1080"
+          fetchPriority="high"
+          decoding="async"
+          className="h-full w-full scale-105 object-cover object-center brightness-75"
         />
 
-        {/* Cinematic Premium Overlay Gradient */}
         <div className="absolute inset-0 bg-gradient-to-t from-bg-brand via-bg-brand/60 to-bg-brand/70" />
-        <div className="absolute inset-0 bg-radial-at-c from-transparent via-bg-brand/30 to-bg-brand/90" />
+
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_center,transparent_0%,rgba(11,11,11,0.3)_50%,rgba(11,11,11,0.9)_100%)]" />
       </div>
 
-      {/* Main Content Box */}
-      <div className="relative z-10 max-w-5xl mx-auto px-6 pt-24 text-center flex flex-col items-center">
-        {/* Subtle Accent Logo Badge */}
+      <div className="relative z-10 mx-auto flex max-w-5xl flex-col items-center px-6 pb-28 pt-32 text-center sm:pb-32">
         <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, ease: "easeOut" }}
-          className="mb-6 flex items-center gap-2 border border-gold-brand/30 bg-gold-brand/5 px-4 py-1.5 rounded-[2px]"
+          initial={
+            shouldReduceMotion
+              ? false
+              : {
+                  opacity: 0,
+                  scale: 0.9,
+                }
+          }
+          animate={{
+            opacity: 1,
+            scale: 1,
+          }}
+          transition={entranceTransition}
+          className="mb-6 flex items-center gap-2 rounded-[2px] border border-gold-brand/30 bg-gold-brand/5 px-4 py-1.5"
         >
-          <span className="w-1.5 h-1.5 bg-gold-brand rounded-full animate-ping" />
-          <span className="text-[10px] tracking-[0.3em] font-semibold text-gold-brand uppercase font-display">
-            PREMIUM SELECTION
+          <span className="relative flex h-1.5 w-1.5">
+            {!shouldReduceMotion && (
+              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-gold-brand opacity-75" />
+            )}
+
+            <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-gold-brand" />
+          </span>
+
+          <span className="font-display text-[10px] font-semibold uppercase tracking-[0.3em] text-gold-brand">
+            SEÇKİN ARAÇLAR
           </span>
         </motion.div>
 
-        {/* Brand Display Title */}
         <motion.h1
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.1, ease: "easeOut" }}
-          className="text-4xl sm:text-6xl md:text-7xl font-display font-bold tracking-[0.2em] text-text-white uppercase leading-tight mb-4"
+          id="hero-title"
+          initial={
+            shouldReduceMotion
+              ? false
+              : {
+                  opacity: 0,
+                  y: 30,
+                }
+          }
+          animate={{
+            opacity: 1,
+            y: 0,
+          }}
+          transition={{
+            ...entranceTransition,
+            delay: shouldReduceMotion ? 0 : 0.1,
+          }}
+          className="mb-4 font-display text-4xl font-bold uppercase leading-tight tracking-[0.12em] text-text-white sm:text-6xl sm:tracking-[0.2em] md:text-7xl"
         >
           MRT DAYIOĞLU
-          <span className="block mt-2 text-2xl sm:text-4xl md:text-5xl font-light tracking-[0.4em] text-gold-brand">
+
+          <span className="mt-2 block text-2xl font-light tracking-[0.32em] text-gold-brand sm:text-4xl sm:tracking-[0.4em] md:text-5xl">
             AUTO
           </span>
         </motion.h1>
 
-        {/* Elegant Premium Tagline */}
         <motion.p
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2, ease: "easeOut" }}
-          className="text-base sm:text-lg md:text-xl font-sans text-text-muted max-w-2xl font-light tracking-wide leading-relaxed mb-12"
+          initial={
+            shouldReduceMotion
+              ? false
+              : {
+                  opacity: 0,
+                  y: 20,
+                }
+          }
+          animate={{
+            opacity: 1,
+            y: 0,
+          }}
+          transition={{
+            ...entranceTransition,
+            delay: shouldReduceMotion ? 0 : 0.2,
+          }}
+          className="mb-12 max-w-2xl font-sans text-base font-light leading-relaxed tracking-wide text-text-muted sm:text-lg md:text-xl"
         >
           Seçkin otomotiv dünyasında güven, prestij ve kurumsal mükemmelliğin
           buluştuğu adres.
         </motion.p>
 
-        {/* 3 Main Quick Contact Buttons */}
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.3, ease: "easeOut" }}
-          className="grid grid-cols-1 sm:grid-cols-3 gap-4 w-full max-w-3xl mb-16"
           id="hero-cta-group"
+          initial={
+            shouldReduceMotion
+              ? false
+              : {
+                  opacity: 0,
+                  y: 20,
+                }
+          }
+          animate={{
+            opacity: 1,
+            y: 0,
+          }}
+          transition={{
+            ...entranceTransition,
+            delay: shouldReduceMotion ? 0 : 0.3,
+          }}
+          className="grid w-full max-w-3xl grid-cols-1 gap-4 sm:grid-cols-3"
         >
-          {/* Call Button */}
           <a
-            href={`tel:${CONTACT_INFO.phone}`}
-            className="flex items-center justify-center gap-3 bg-gold-brand hover:bg-gold-hover text-bg-brand text-xs sm:text-sm font-semibold tracking-wider uppercase py-4 px-6 rounded-[2px] transition-all duration-300 shadow-xl shadow-gold-brand/10 hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold-brand/80"
             id="hero-call-btn"
+            href={`tel:${CONTACT_INFO.phone}`}
+            aria-label={`MRT DAYIOĞLU AUTO'yu ara: ${CONTACT_INFO.phoneFormatted}`}
+            className="flex items-center justify-center gap-3 rounded-[2px] bg-gold-brand px-6 py-4 text-xs font-semibold uppercase tracking-wider text-bg-brand shadow-xl shadow-gold-brand/10 transition-all duration-300 hover:-translate-y-0.5 hover:bg-gold-hover focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-brand focus-visible:ring-offset-4 focus-visible:ring-offset-bg-brand sm:text-sm"
           >
-            <Phone className="w-4 h-4 flex-shrink-0" />
+            <Phone aria-hidden="true" className="h-4 w-4 flex-shrink-0" />
             <span>Hemen Ara</span>
           </a>
 
-          {/* WhatsApp Button */}
           <a
+            id="hero-whatsapp-btn"
             href={CONTACT_INFO.whatsappUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center justify-center gap-3 bg-transparent hover:bg-white/5 text-text-white border border-border-brand hover:border-gold-brand hover:text-gold-brand text-xs sm:text-sm font-semibold tracking-wider uppercase py-4 px-6 rounded-[2px] transition-all duration-300 hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold-brand/80"
-            id="hero-whatsapp-btn"
+            aria-label="MRT DAYIOĞLU AUTO ile WhatsApp üzerinden iletişime geç"
+            className="flex items-center justify-center gap-3 rounded-[2px] border border-border-brand bg-transparent px-6 py-4 text-xs font-semibold uppercase tracking-wider text-text-white transition-all duration-300 hover:-translate-y-0.5 hover:border-gold-brand hover:bg-white/5 hover:text-gold-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-brand focus-visible:ring-offset-4 focus-visible:ring-offset-bg-brand sm:text-sm"
           >
-            <MessageSquare className="w-4 h-4 text-emerald-500 flex-shrink-0" />
+            <MessageSquare
+              aria-hidden="true"
+              className="h-4 w-4 flex-shrink-0 text-emerald-500"
+            />
             <span>WhatsApp</span>
           </a>
 
-          {/* Location / Directions Button */}
           <a
-            href={CONTACT_INFO.mapsDirectionsUrl}
+            id="hero-location-btn"
+            href={mapsUrl}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center justify-center gap-3 bg-transparent hover:bg-white/5 text-text-white border border-border-brand hover:border-gold-brand hover:text-gold-brand text-xs sm:text-sm font-semibold tracking-wider uppercase py-4 px-6 rounded-[2px] transition-all duration-300 hover:-translate-y-0.5 focus:outline-none focus-visible:ring-2 focus-visible:ring-gold-brand/80"
-            id="hero-location-btn"
+            aria-label="MRT DAYIOĞLU AUTO konumunu Google Haritalar'da aç"
+            className="flex items-center justify-center gap-3 rounded-[2px] border border-border-brand bg-transparent px-6 py-4 text-xs font-semibold uppercase tracking-wider text-text-white transition-all duration-300 hover:-translate-y-0.5 hover:border-gold-brand hover:bg-white/5 hover:text-gold-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-brand focus-visible:ring-offset-4 focus-visible:ring-offset-bg-brand sm:text-sm"
           >
-            <MapPin className="w-4 h-4 text-red-500 flex-shrink-0" />
+            <MapPin
+              aria-hidden="true"
+              className="h-4 w-4 flex-shrink-0 text-red-500"
+            />
             <span>Konuma Git</span>
           </a>
         </motion.div>
-
-        {/* Scroll Indicator */}
-        <motion.button
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ delay: 0.6, duration: 1 }}
-          onClick={handleScrollToNext}
-          className="absolute bottom-8 flex flex-col items-center gap-2 text-text-muted hover:text-gold-brand transition-colors duration-300 cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-gold-brand/80 p-2 rounded-[2px]"
-          aria-label="Aşağı Kaydır"
-        >
-          <span className="text-xs uppercase tracking-[0.25em] font-light">
-            KEŞFET
-          </span>
-          <ChevronDown className="w-4 h-4 animate-bounce" />
-        </motion.button>
       </div>
+
+      <motion.button
+        type="button"
+        initial={shouldReduceMotion ? false : { opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{
+          delay: shouldReduceMotion ? 0 : 0.6,
+          duration: shouldReduceMotion ? 0 : 1,
+        }}
+        onClick={handleScrollToNext}
+        aria-label="Hakkımızda bölümüne geç"
+        className="absolute bottom-6 left-1/2 z-10 flex -translate-x-1/2 cursor-pointer flex-col items-center gap-2 rounded-[2px] p-2 text-text-muted transition-colors duration-300 hover:text-gold-brand focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-gold-brand sm:bottom-8"
+      >
+        <span className="text-xs font-light uppercase tracking-[0.25em]">
+          Keşfet
+        </span>
+
+        <ChevronDown
+          aria-hidden="true"
+          className={`h-4 w-4 ${
+            shouldReduceMotion ? "" : "animate-bounce"
+          }`}
+        />
+      </motion.button>
     </section>
   );
 }

@@ -11,11 +11,18 @@ import { CONTACT_INFO } from "../types";
 export default function Location() {
   const [copied, setCopied] = useState(false);
 
-  const handleCopyAddress = async () => {
+ const handleCopyAddress = async () => {
+  try {
     await navigator.clipboard.writeText(CONTACT_INFO.address);
     setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
-  };
+
+    setTimeout(() => {
+      setCopied(false);
+    }, 2000);
+  } catch (error) {
+    console.error("Adres kopyalanamadı:", error);
+  }
+};
 
   return (
     <section
@@ -83,21 +90,21 @@ export default function Location() {
                 )}
               </button>
 
-              <div className="mt-8 border-t border-border-brand pt-6">
-                <h4 className="mb-4 font-display text-xs uppercase tracking-[0.3em] text-text-white">
-                  Çalışma Saatleri
-                </h4>
+<div className="mt-8 border-t border-border-brand pt-6">
+  <h4 className="mb-4 font-display text-xs uppercase tracking-[0.3em] text-text-white">
+    Çalışma Saatleri
+  </h4>
 
-                <div className="flex justify-between text-sm text-text-muted">
-                  <span>Pzt - Cmt</span>
-                  <span className="text-text-white">09:00 - 19:00</span>
-                </div>
+  <div className="flex justify-between text-sm text-text-muted">
+    <span>Pazartesi - Cumartesi</span>
+    <span className="text-text-white">09:00 - 18:00</span>
+  </div>
 
-                <div className="mt-2 flex justify-between text-sm text-text-muted">
-                  <span>Pazar</span>
-                  <span className="text-gold-brand">Randevu ile</span>
-                </div>
-              </div>
+  <div className="mt-2 flex justify-between text-sm text-text-muted">
+    <span>Pazar</span>
+    <span className="text-gold-brand">Kapalı</span>
+  </div>
+</div>
             </div>
 
             <a
