@@ -97,7 +97,7 @@ export default function Location() {
 
   <div className="flex justify-between text-sm text-text-muted">
     <span>Pazartesi - Cumartesi</span>
-    <span className="text-text-white">09:00 - 18:00</span>
+    <span className="text-text-white">10:00 - 18:00</span>
   </div>
 
   <div className="mt-2 flex justify-between text-sm text-text-muted">
