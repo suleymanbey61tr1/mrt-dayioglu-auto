@@ -24,7 +24,7 @@ export const CONTACT_INFO: ContactConfig = {
   foundedYear: 2026,
 
   workingHours:
-  "Pazartesi - Cumartesi: 09:00 - 18:00 | Pazar: Kapalı",
+  "Pazartesi - Cumartesi: 10:00 - 18:00 | Pazar: Kapalı",
 
   // Telefon
   phone: "+905421838461",
